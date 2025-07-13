@@ -6,8 +6,8 @@
 /
 
 &system
-    ibrav        = 0               ! we provide CELL_PARAMETERS
-    nat          = 71              ! 6×6×1   → 72 atoms – 1 vacancy
+    ibrav        = 0
+    nat          = 71
     ntyp         = 2
     ecutwfc      = 65
     ecutrho      = 520
@@ -16,13 +16,15 @@
     degauss      = 0.01
     noncolin     = .true.
     lspinorb     = .true.
-    starting_magnetization(1) = 0.5  ! B
-    starting_magnetization(2) = 0.5  ! N
+    starting_magnetization(1) = 0.5
+    starting_magnetization(2) = 0.5
 /
 
 &electrons
     conv_thr     = 1.0d-8
-    mixing_beta  = 0.1
+    mixing_beta  = 0.3
+    diagonalization = 'david'
+    electron_maxstep = 300
 /
 
 ATOMIC_SPECIES
@@ -37,7 +39,6 @@ CELL_PARAMETERS angstrom
 K_POINTS automatic
   3 3 1  0 0 0
 
-! --- paste the content of hbn_vb.atoms below ---
 ATOMIC_POSITIONS angstrom
 N 1.4460000000 0.0000000000 10.0000000000  
 B 1.2520000000 2.1685276111 10.0000000000  

@@ -11,16 +11,19 @@
     ntyp         = 2
     ecutwfc      = 65
     ecutrho      = 520
-    occupations  = 'fixed'
+    occupations  = 'smearing'
+    smearing     = 'mv'
     degauss      = 0.01
     noncolin     = .true.
     lspinorb     = .true.
+    starting_magnetization(1) = 0.5
+    starting_magnetization(2) = 0.5
 /
 
 &electrons
     conv_thr     = 1.0d-8
     mixing_beta  = 0.3
-    diagonalization = 'rmm-diab'
+    diagonalization = 'david'
     electron_maxstep = 300
     startingpot  = 'file'
     startingwfc  = 'file'
