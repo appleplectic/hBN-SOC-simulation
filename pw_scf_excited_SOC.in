@@ -1,5 +1,5 @@
 &control
-    calculation  = 'scf'
+    calculation  = 'nscf'
     prefix       = 'hbn_vb_excited_soc'
     pseudo_dir   = './pseudo'
     outdir       = './scratch'
@@ -11,7 +11,9 @@
     ntyp         = 2
     ecutwfc      = 65
     ecutrho      = 520
+    nbnd         = 305
     occupations  = 'smearing'
+    smearing     = 'gaussian'
     smearing     = 'mv'
     degauss      = 0.01
     noncolin     = .true.
@@ -39,7 +41,7 @@ CELL_PARAMETERS angstrom
   0.00000000000000 0.00000000000000 20.00000000000000
 
 K_POINTS automatic
-  3 3 1  0 0 0
+  1 1 1  0 0 0
 
 ATOMIC_POSITIONS angstrom
 N 1.4460000000 0.0000000000 10.0000000000  
