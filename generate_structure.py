@@ -5,6 +5,7 @@ Build 2D h-BN monolayer with a B-vacancy and write QE input.
 
 from ase import Atoms
 from ase.build import make_supercell
+from ase.geometry import get_distances
 from ase.io import write
 import numpy as np
 
@@ -32,10 +33,13 @@ prim.center(axis=2)
 P = np.identity(3) * [REP, REP, 1]
 supercell = make_supercell(prim, P)
 
-for i, atom in enumerate(supercell):
-    if atom.symbol == 'B':
-        del supercell[i]
-        break
+center = supercell.get_cell().sum(axis=0) / 2
+
+# Find the B atom closest to the center + delete
+b_indices = [i for i, atom in enumerate(supercell) if atom.symbol == 'B']
+distances = [np.linalg.norm(supercell[i].position - center) for i in b_indices]
+center_b_index = b_indices[np.argmin(distances)]
+del supercell[center_b_index]
 
 write('hbn_vb.atoms', supercell, format='espresso-in', pseudopotentials={
     'B': 'B.rel-pbe-n-rrkjus_psl.1.0.0.UPF',

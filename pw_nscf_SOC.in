@@ -1,6 +1,6 @@
 &control
-    calculation  = 'scf'
-    prefix       = 'hbn_vb_excited_nosoc'
+    calculation  = 'nscf'
+    prefix       = 'hbn_vb_soc'
     pseudo_dir   = './pseudo'
     outdir       = './scratch'
 /
@@ -11,25 +11,24 @@
     ntyp         = 2
     ecutwfc      = 65
     ecutrho      = 520
-    nbnd         = 150
-    occupations  = 'from_input'
-    noncolin     = .false.
-    lspinorb     = .false.
-    nspin        = 2
+    occupations  = 'fixed'
+    nbnd         = 300
+    noncolin     = .true.
+    lspinorb     = .true.
     starting_magnetization(1) = 0.5
     starting_magnetization(2) = 0.5
 /
+
 &electrons
     conv_thr     = 1.0d-8
     mixing_beta  = 0.3
     diagonalization = 'david'
     electron_maxstep = 300
-    startingpot  = 'file'
-    startingwfc  = 'file'
 /
+
 ATOMIC_SPECIES
-  B  10.811  B.pbe-n-rrkjus_psl.1.0.0.UPF
-  N  14.007  N.pbe-n-rrkjus_psl.1.0.0.UPF
+  B  10.811  B.rel-pbe-n-rrkjus_psl.1.0.0.UPF
+  N  14.007  N.rel-pbe-n-rrkjus_psl.1.0.0.UPF
 
 CELL_PARAMETERS angstrom
   15.02400000000000 0.00000000000000 0.00000000000000
@@ -38,9 +37,6 @@ CELL_PARAMETERS angstrom
 
 K_POINTS automatic
   1 1 1  0 0 0
-
-OCCUPATIONS
-?
 
 ATOMIC_POSITIONS angstrom
 B 0.0000000000 0.0000000000 10.0000000000  
@@ -113,4 +109,4 @@ N 17.7220000000 6.5055828332 10.0000000000
 B 17.5280000000 8.6741104443 10.0000000000  
 N 18.9740000000 8.6741104443 10.0000000000  
 B 18.7800000000 10.8426380554 10.0000000000  
-N 20.2260000000 10.8426380554 10.0000000000  
+N 20.2260000000 10.8426380554 10.0000000000   

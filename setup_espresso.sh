@@ -20,6 +20,8 @@ apt install -y \
     make \
     cmake
 
+pip3 install -r requirements.txt
+
 wget https://github.com/QEF/q-e/archive/qe-${QE_VERSION}.tar.gz \
     && tar -xzf qe-${QE_VERSION}.tar.gz \
     && rm qe-${QE_VERSION}.tar.gz
@@ -40,6 +42,8 @@ cd q-e-qe-${QE_VERSION}
     && make ph -j$(nproc) \
     && make pp -j$(nproc) \
     && make install
+
+# install gh: optional
 
 (type -p wget >/dev/null || (sudo apt update && sudo apt install wget -y)) \
 	&& sudo mkdir -p -m 755 /etc/apt/keyrings \
