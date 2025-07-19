@@ -24,30 +24,12 @@ def build_occ_collinear_by_count(nbnd, n_up, n_dn, excite_channel="down"):
     return occ_up + occ_dn
 
 
-def build_occ_collinear(spin_up, spin_dn, fermi, excite_channel="down"):
-    nbnd = min(len(spin_up), len(spin_dn))
-    spin_up, spin_dn = spin_up[:nbnd], spin_dn[:nbnd]
-
-    occ_up = [1.0 if e <= fermi else 0.0 for e in spin_up]
-    occ_dn = [1.0 if e <= fermi else 0.0 for e in spin_dn]
-
-    target = spin_dn if excite_channel == "down" else spin_up
-    occ_tgt = occ_dn if excite_channel == "down" else occ_up
-
-    i_h = bisect.bisect_right(target, fermi) - 1
-    i_l = i_h + 1
-
-    occ_tgt[i_h] = 0.0
-    occ_tgt[i_l] = 1.0
-
-    return occ_up + occ_dn
-
 def build_occ_soc(bands, fermi):
-    occ = [2.0 if e <= fermi else 0.0 for e in bands]
+    occ = [1.0 if e <= fermi else 0.0 for e in bands]
 
     i_h = bisect.bisect_right(bands, fermi) - 1
     i_l = i_h + 1
-    occ[i_h] = 1.0
+    occ[i_h] = 0.0
     occ[i_l] = 1.0
     return occ
 
@@ -88,7 +70,7 @@ def main():
             started_lines = -1
             continue
         elif "total magnetization" in line.lower():
-            mag = float(re.search(r"magnetization\s*=\s*([0-9]+\.[0-9]+)", line).group(1))
+            mag = float(re.search(r"magnetization\s*=.*?(-?[0-9]+\.[0-9]+) Bohr mag\/cell", line).group(1))
 
             
         if started_lines >= 0:
@@ -124,7 +106,7 @@ def main():
     for i in range(0, len(occ), 10):
         chunk = occ[i:i+10]
         print("  " + " ".join(f"{o:.6f}" for o in chunk))
-    print(len(occ), sum(occ))
+    print("! " + str(len(occ)) + " " + str(sum(occ)))
 
 if __name__ == "__main__":
     main()

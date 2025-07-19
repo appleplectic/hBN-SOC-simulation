@@ -56,3 +56,10 @@ cd q-e-qe-${QE_VERSION}
 	&& sudo apt install gh -y
 
 gh auth login
+
+# Change based on name
+git config user.name "Levin Ma"
+git config user.email "llmar1000000@gmail.com"
+
+git clone https://github.com/appleplectic/hBN-SOC-simulation.git
+cd hBN-SOC-simulation
